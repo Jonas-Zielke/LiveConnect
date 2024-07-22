@@ -25,6 +25,10 @@ class ConnectionManager:
             try:
                 await connection.send_json(message)
             except Exception as e:
+<<<<<<< HEAD
+=======
+                # Handle the exception if the connection is already closed or any other error
+>>>>>>> 12b51773a73b9ac6c2e0ab052ffb95af0c622e64
                 print(f"Error sending message: {e}")
                 self.disconnect(connection, room_id)
 
@@ -32,8 +36,14 @@ manager = ConnectionManager()
 
 @router.websocket("/wss/connect/room/{room_id}/")
 async def websocket_endpoint(websocket: WebSocket, room_id: int, token: str):
+<<<<<<< HEAD
     if not check_room_token(token, room_id):
         await websocket.close(code=1008)
+=======
+    # Check if the token is valid for the given room_id
+    if not check_room_token(token, room_id):
+        await websocket.close(code=1008)  # Close with policy violation
+>>>>>>> 12b51773a73b9ac6c2e0ab052ffb95af0c622e64
         return
 
     await manager.connect(websocket, room_id)
@@ -51,3 +61,7 @@ async def websocket_endpoint(websocket: WebSocket, room_id: int, token: str):
         print(f"Error: {e}")
         manager.disconnect(websocket, room_id)
 
+<<<<<<< HEAD
+=======
+# Speichere diese Datei als Router/wss.py
+>>>>>>> 12b51773a73b9ac6c2e0ab052ffb95af0c622e64
